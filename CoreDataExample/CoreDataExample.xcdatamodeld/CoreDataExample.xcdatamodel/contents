@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9057" systemVersion="15B42" minimumToolsVersion="Automatic">
+    <entity name="ATM" representedClassName="ATM" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="historyClient" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="historyData" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="identificationNumber" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="ofCash" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="street" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uidCity" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bank" inverseName="atms" inverseEntity="Bank" syncable="YES"/>
+    </entity>
+    <entity name="Bank" representedClassName="Bank" syncable="YES">
+        <attribute name="city" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="color" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="date" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="logoype" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="uid" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="atms" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="ATM" inverseName="bank" inverseEntity="ATM" syncable="YES"/>
+        <relationship name="cards" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Card" inverseName="bank" inverseEntity="Card" syncable="YES"/>
+        <relationship name="clients" optional="YES" toMany="YES" deletionRule="Deny" destinationEntity="Client" inverseName="banks" inverseEntity="Client" syncable="YES"/>
+        <relationship name="products" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Product" inverseName="bank" inverseEntity="Product" syncable="YES"/>
+        <relationship name="staffs" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Staff" inverseName="bank" inverseEntity="Staff" syncable="YES"/>
+    </entity>
+    <entity name="Card" representedClassName="Card" syncable="YES">
+        <attribute name="emblemOfTheBank" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expirationInformation" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="uidCard" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bank" inverseName="cards" inverseEntity="Bank" syncable="YES"/>
+    </entity>
+    <entity name="Client" representedClassName="Client" syncable="YES">
+        <attribute name="dateBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idPassport" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="passportsAreIssued" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patronymic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placeBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seriesPassport" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="banks" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Bank" inverseName="clients" inverseEntity="Bank" syncable="YES"/>
+        <relationship name="level" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Level" inverseName="clients" inverseEntity="Level" syncable="YES"/>
+    </entity>
+    <entity name="Level" representedClassName="Level" syncable="YES">
+        <attribute name="client" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="reducedRate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="clients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Client" inverseName="level" inverseEntity="Client" syncable="YES"/>
+    </entity>
+    <entity name="Loan" representedClassName="Loan" parentEntity="Product" syncable="YES">
+        <attribute name="dateOfTakingOutALoan" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="endDateOfTheLoan" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="interestRate" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Product" representedClassName="Product" isAbstract="YES" syncable="YES">
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bank" inverseName="products" inverseEntity="Bank" syncable="YES"/>
+    </entity>
+    <entity name="Staff" representedClassName="Staff" syncable="YES">
+        <attribute name="dateOfBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="floor" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="idPassport" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="passportsAreIssued" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="patronymic" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="placeBirth" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="position" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="seriesPassport" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="status" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="surname" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="wage" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="bank" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Bank" inverseName="staffs" inverseEntity="Bank" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="ATM" positionX="153" positionY="-189" width="128" height="178"/>
+        <element name="Bank" positionX="-92" positionY="-36" width="128" height="208"/>
+        <element name="Card" positionX="160" positionY="18" width="128" height="118"/>
+        <element name="Client" positionX="-360" positionY="-135" width="128" height="210"/>
+        <element name="Level" positionX="-558" positionY="-61" width="128" height="88"/>
+        <element name="Loan" positionX="-569" positionY="200" width="128" height="88"/>
+        <element name="Product" positionX="-342" positionY="198" width="128" height="58"/>
+        <element name="Staff" positionX="151" positionY="153" width="128" height="240"/>
+    </elements>
+</model>
